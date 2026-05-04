@@ -1,7 +1,6 @@
 package com.example.clinicmanagementsystem.config;
 
 import com.example.clinicmanagementsystem.repo.DoctorRepo;
-import com.example.clinicmanagementsystem.repo.HumanRepo;
 import com.example.clinicmanagementsystem.repo.PatientRepo;
 import com.example.clinicmanagementsystem.repo.ReceptionistRepo;
 import lombok.RequiredArgsConstructor;

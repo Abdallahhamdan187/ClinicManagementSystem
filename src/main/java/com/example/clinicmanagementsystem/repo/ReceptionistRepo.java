@@ -9,6 +9,6 @@ import java.util.Optional;
 public interface ReceptionistRepo extends JpaRepository<Receptionist,Long> {
 
 
-    Optional<? extends Doctor> findByEmail(String email);
+    Optional<Receptionist> findByEmail(String email);
 
 }

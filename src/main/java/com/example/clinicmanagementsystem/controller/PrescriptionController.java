@@ -20,7 +20,7 @@ public class PrescriptionController {
     private final PrescriptionService prescriptionService;
 
     @PostMapping
-    public Prescription addPrescription(@RequestBody PrescriptionDto dto) {
+    public PrescriptionDto addPrescription(@RequestBody PrescriptionDto dto) {
         return prescriptionService.addPrescription(dto);
     }
 

@@ -27,33 +27,33 @@ public class ReceptionistService {
     private final ReceptionistRepo receptionistRepo;
     private final PatientRepo patientRepo;
 
-    public ReceptionistDto addReceptionist(@NonNull ReceptionistDto dto) {
-        Receptionist receptionist = new Receptionist();
-
-        receptionist.setFirstName(dto.firstName());
-        receptionist.setLastName(dto.lastName());
-        receptionist.setEmail(dto.email());
-        receptionist.setAge(dto.age());
-        receptionist.setRole(Role.Receptionist);
-        receptionist.setPhoneNumber(dto.phoneNumber());
-        receptionist.setUserName(dto.userName());
-        receptionist.setPassword(dto.password());
-
-        Receptionist saved = receptionistRepo.save(receptionist);
-
-        return new ReceptionistDto(
-                saved.getId(),
-                saved.getFirstName(),
-                saved.getLastName(),
-                saved.getEmail(),
-                saved.getAge(),
-                saved.getPhoneNumber(),
-                saved.getUsername(),
-                saved.getPassword(),
-                null
-
-        );
-    }
+//    public ReceptionistDto addReceptionist(@NonNull ReceptionistDto dto) {
+//        Receptionist receptionist = new Receptionist();
+//
+//        receptionist.setFirstName(dto.firstName());
+//        receptionist.setLastName(dto.lastName());
+//        receptionist.setEmail(dto.email());
+//        receptionist.setAge(dto.age());
+//        receptionist.setRole(Role.Receptionist);
+//        receptionist.setPhoneNumber(dto.phoneNumber());
+//        receptionist.setUserName(dto.userName());
+//        receptionist.setPassword(dto.password());
+//
+//        Receptionist saved = receptionistRepo.save(receptionist);
+//
+//        return new ReceptionistDto(
+//                saved.getId(),
+//                saved.getFirstName(),
+//                saved.getLastName(),
+//                saved.getEmail(),
+//                saved.getAge(),
+//                saved.getPhoneNumber(),
+//                saved.getUsername(),
+//                saved.getPassword(),
+//                null
+//
+//        );
+//    }
 
 
     public Page<Receptionist> getReceptionist(int page, int size) {
@@ -74,6 +74,7 @@ public class ReceptionistService {
         findReceptionist.setEmail(dto.email());
         findReceptionist.setAge(dto.age());
         findReceptionist.setPhoneNumber(dto.phoneNumber());
+        findReceptionist.setRole(Role.Receptionist);
         findReceptionist.setUserName(dto.userName());
         findReceptionist.setPassword(dto.password());
 

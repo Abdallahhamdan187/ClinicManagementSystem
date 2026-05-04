@@ -1,8 +1,5 @@
 package com.example.clinicmanagementsystem.dto;
 
-import com.example.clinicmanagementsystem.entities.Appointment;
-import com.example.clinicmanagementsystem.entities.Invoice;
-import com.example.clinicmanagementsystem.entities.Prescription;
 
 import java.time.LocalTime;
 import java.util.List;

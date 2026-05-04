@@ -32,7 +32,7 @@ public class PrescriptionService {
     private final AppointmentRepo appointmentRepo;
     private final InvoiceRepo invoiceRepo;
 
-    public Prescription addPrescription(@NonNull PrescriptionDto dto) {
+    public PrescriptionDto addPrescription(@NonNull PrescriptionDto dto) {
         Prescription prescription = new Prescription();
         prescription.setIssuedAt(LocalDate.now());
         prescription.setValidUntil(dto.validUntil());
@@ -60,9 +60,29 @@ public class PrescriptionService {
 
             prescription.setMedicines(items);
         }
-
-        return prescriptionRepo.save(prescription);
+        Prescription saved = prescriptionRepo.save(prescription);
+        return new PrescriptionDto(
+                saved.getId(),
+                saved.getIssuedAt(),
+                saved.getValidUntil(),
+                saved.getInstruction(),
+                null, // invoiceId
+                saved.getDoctor().getId(),
+                saved.getPatient().getId(),
+                saved.getAppointment().getId(),
+                saved.getMedicines().stream().map(m -> new PrescriptionsMedicineDto(
+                        m.getId(),
+                        m.getDosage(),
+                        m.getFreq(),
+                        m.getDurationDays(),
+                        m.getInstruction(),
+                        m.getPrice(),
+                        saved.getId(),
+                        m.getMedicine().getId()
+                )).toList()
+        );
     }
+
 
 
     public Page<Prescription> getFilteredPrescriptions(int page, int size, PrescriptionStatus status, Long pId, Long dId, LocalDate start, LocalDate end) {

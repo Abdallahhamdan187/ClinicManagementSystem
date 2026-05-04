@@ -30,12 +30,21 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/v1/auth/**",
-                                "/api",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
-                                "/swagger-ui.html"
-
+                                "/swagger-ui.html",
+                                "/h2-console/**"
                         ).permitAll()
+
+                        .requestMatchers("/api/v1/doctors/**").hasAuthority("Doctor")
+                        .requestMatchers("/api/v1/medicine/**").hasAuthority("Doctor")
+                        .requestMatchers("/api/v1/presc/**").hasAuthority("Doctor")
+
+                        .requestMatchers("/api/v1/invoice/**").hasAuthority("Receptionist")
+                        .requestMatchers("/api/v1/reception/**").hasAuthority("Receptionist")
+
+                        .requestMatchers("/api/v1/patient/**").hasAuthority("Patient")
+
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
@@ -45,5 +54,6 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
 
 }

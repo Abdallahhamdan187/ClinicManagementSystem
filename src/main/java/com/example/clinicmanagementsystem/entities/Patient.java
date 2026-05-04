@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 @Entity
 @Data
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor

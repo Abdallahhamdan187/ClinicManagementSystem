@@ -35,6 +35,7 @@ public class AppointmentService {
     private final ReceptionistRepo receptionistRepo;
 
     public boolean hasConflict(Long doctorId, LocalDate date, LocalTime start, LocalTime end) {
+
         return appointmentRepo.hasConflict(doctorId, date, start, end, AppointmentStats.CANCELLED);
     }
 
@@ -43,17 +44,21 @@ public class AppointmentService {
                 .orElseThrow(DoctorNotFoundException::new);
 
         if (hasConflict(dto.doctorId(), dto.date(), dto.startTime(), dto.endTime())) {
+            log.warn("Booked Slot with this date {} and start time {} ,end time {}", dto.date(), dto.startTime(), dto.endTime());
             throw new RuntimeException("Choose another Time slot, this one is already booked!!");
         }
         if (dto.startTime().isBefore(doctor.getStartTime()) ||
                 dto.endTime().isAfter(doctor.getEndTime())) {
+            log.warn("Out of the doctors time ");
             throw new RuntimeException("Doctor is only available between " +
                     doctor.getStartTime() + " and " + doctor.getEndTime());
         }
         if (dto.startTime().isAfter(dto.endTime())) {
+            log.warn("End time {} is after start time {}", dto.endTime(), dto.startTime());
             throw new RuntimeException("Invalid time range: start time must be before end time");
         }
         if (dto.date().isBefore(LocalDate.now())) {
+            log.warn("Booked in the past must be after {}", LocalDate.now());
             throw new RuntimeException("Booking must be for today or in the future");
         }
 
@@ -71,7 +76,7 @@ public class AppointmentService {
                 .orElseThrow(ReceptionistNotFoundException::new));
 
         Appointment saved = appointmentRepo.save(appointment);
-
+        log.info("Appointment was created successfully with id {} !!", dto.id());
         return new AppointmentDto(
                 saved.getId(),
                 saved.getDate(),
@@ -86,6 +91,7 @@ public class AppointmentService {
 
     public Page<AppointmentDto> getAppointments(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
+        log.info("Fetched all Appointments");
         return appointmentRepo.findAll(pageable)
                 .map(app -> new AppointmentDto(
                         app.getId(),
@@ -96,39 +102,57 @@ public class AppointmentService {
                         app.getDoctor().getId(),
                         app.getPatient().getId(),
                         app.getReceptionist().getId()
+
+
                 ));
     }
 
 
     public void cancel(Long id) {
 
-        Appointment app = appointmentRepo.findById(id).orElseThrow(AppointmentNotFoundException::new);
+        Appointment app = appointmentRepo.findById(id).orElseThrow(() -> {
+            log.warn("Failed to cancel: Appointment ID {} not found", id);
+            return new AppointmentNotFoundException();
+        });
         app.setStatus(AppointmentStats.CANCELLED);
         appointmentRepo.save(app);
+        log.info("Appointment was canceled successfully!!");
     }
 
     public void delete(Long id) {
 
-        Appointment app = appointmentRepo.findById(id).orElseThrow(AppointmentNotFoundException::new);
+        Appointment app = appointmentRepo.findById(id).orElseThrow(() -> {
+            log.warn("Failed to delete: Appointment ID {} not found", id);
+            return new AppointmentNotFoundException();
+        });
         appointmentRepo.deleteById(id);
+        log.info("Appointment was deleted successfully!!");
 
     }
 
     public void complete(Long id) {
 
-        Appointment app = appointmentRepo.findById(id).orElseThrow(AppointmentNotFoundException::new);
+        Appointment app = appointmentRepo.findById(id).orElseThrow(() -> {
+            log.warn("Failed to complete: Appointment ID {} not found", id);
+            return new AppointmentNotFoundException();
+        });
         app.setStatus(AppointmentStats.COMPLETED);
         appointmentRepo.save(app);
+        log.info("Appointment was completed successfully!!");
     }
 
     public void reschedule(Long id, LocalDate newTime, LocalTime newStart, LocalTime newEnd) {
 
-        Appointment app = appointmentRepo.findById(id).orElseThrow(AppointmentNotFoundException::new);
+        Appointment app = appointmentRepo.findById(id).orElseThrow(() -> {
+            log.warn("Failed to reschedule: Appointment ID {} not found", id);
+            return new AppointmentNotFoundException();
+        });
 
         app.setDate(newTime);
         app.setStartTime(newStart);
         app.setEndTime(newEnd);
         appointmentRepo.save(app);
+        log.info("Appointment was rescheduled successfully!!");
     }
 
 

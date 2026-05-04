@@ -30,38 +30,38 @@ public class PatientService {
     private final InvoiceRepo invoiceRepo;
 
 
-    public PatientDto addPatient(@NonNull PatientDto dto) {
-
-        Patient patient = new Patient();
-
-        patient.setFirstName(dto.firstName());
-        patient.setLastName(dto.lastName());
-        patient.setEmail(dto.email());
-        patient.setAge(dto.age());
-        patient.setPhoneNumber(dto.phoneNumber());
-        patient.setUserName(dto.userName());
-        patient.setPassword(dto.password());
-        patient.setRole(Role.Patient);
-        patient.setDob(dto.dob());
-
-        Patient saved = patientRepo.save(patient);
-
-        return new PatientDto(
-                saved.getId(),
-                saved.getFirstName(),
-                saved.getLastName(),
-                saved.getEmail(),
-                saved.getAge(),
-                saved.getPhoneNumber(),
-                saved.getUsername(),
-                saved.getPassword(),
-                saved.getDob(),
-                null,
-                null,
-                null,
-                null
-        );
-    }
+//    public PatientDto addPatient(@NonNull PatientDto dto) {
+//
+//        Patient patient = new Patient();
+//
+//        patient.setFirstName(dto.firstName());
+//        patient.setLastName(dto.lastName());
+//        patient.setEmail(dto.email());
+//        patient.setAge(dto.age());
+//        patient.setPhoneNumber(dto.phoneNumber());
+//        patient.setUserName(dto.userName());
+//        patient.setPassword(dto.password());
+//        patient.setRole(Role.Patient);
+//        patient.setDob(dto.dob());
+//
+//        Patient saved = patientRepo.save(patient);
+//
+//        return new PatientDto(
+//                saved.getId(),
+//                saved.getFirstName(),
+//                saved.getLastName(),
+//                saved.getEmail(),
+//                saved.getAge(),
+//                saved.getPhoneNumber(),
+//                saved.getUsername(),
+//                saved.getPassword(),
+//                saved.getDob(),
+//                null,
+//                null,
+//                null,
+//                null
+//        );
+//    }
 
 
     public Page<Patient> getFilteredPatients(int page, int size, String name, LocalDate dob, String email) {
@@ -85,6 +85,7 @@ public class PatientService {
         findPatient.setPhoneNumber(dto.phoneNumber());
         findPatient.setUserName(dto.userName());
         findPatient.setPassword(dto.password());
+        findPatient.setRole(Role.Patient);
 
         findPatient.setDob(dto.dob());
 

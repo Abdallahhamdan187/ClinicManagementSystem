@@ -30,10 +30,10 @@ public class ReceptionistController {
     private final AppointmentService appointmentService;
 
 
-    @PostMapping
-    public ReceptionistDto addReceptionist(@Valid@RequestBody ReceptionistDto dto) {
-        return receptionistService.addReceptionist(dto);
-    }
+//    @PostMapping
+//    public ReceptionistDto addReceptionist(@Valid@RequestBody ReceptionistDto dto) {
+//        return receptionistService.addReceptionist(dto);
+//    }
 
     @GetMapping
     public Page<Receptionist> getAllReceptionists(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
@@ -62,10 +62,10 @@ public class ReceptionistController {
     }
 
 
-    @PostMapping("/addPatient")
-    public PatientDto addPatient(@Valid @RequestBody PatientDto dto) {
-        return patientService.addPatient(dto);
-    }
+//    @PostMapping("/addPatient")
+//    public PatientDto addPatient(@Valid @RequestBody PatientDto dto) {
+//        return patientService.addPatient(dto);
+//    }
 
     @GetMapping("/getPatient")
     public Page<Patient> getFilteredPatients(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam @Nullable String name, @RequestParam@Nullable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dob,@Nullable @RequestParam String email) {
@@ -114,12 +114,12 @@ public class ReceptionistController {
 
     }
 
-    @DeleteMapping("/{id}/Appointment")
+    @DeleteMapping("/{id}/appointments")
     public void delete(@PathVariable Long id) {
         appointmentService.delete(id);
     }
 
-    @GetMapping("/apointments")
+    @GetMapping("/appointments")
     public Page<AppointmentDto> getAppointment(@RequestParam(defaultValue = "0") int page,
                                                @RequestParam(defaultValue = "10") int size){
        return appointmentService.getAppointments(page, size);

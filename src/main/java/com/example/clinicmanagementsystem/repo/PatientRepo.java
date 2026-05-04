@@ -24,5 +24,5 @@ public interface PatientRepo extends JpaRepository<Patient,Long> {
             @Param("email") String email,
             Pageable pageable);
 
-    Optional<? extends Doctor> findByEmail(String email);
+    Optional<Patient> findByEmail(String email);
 }

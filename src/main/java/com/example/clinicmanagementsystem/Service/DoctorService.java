@@ -30,42 +30,42 @@ public class DoctorService {
     private final AppointmentRepo appointmentRepo;
     private final InvoiceRepo invoiceRepo;
 
-    public DoctorDto addDoctor(@NonNull DoctorDto dto) {
-        Doctor doctor = new Doctor();
-
-        doctor.setFirstName(dto.firstName());
-        doctor.setLastName(dto.lastName());
-        doctor.setEmail(dto.email());
-        doctor.setAge(dto.age());
-        doctor.setPhoneNumber(dto.phoneNumber());
-        doctor.setUserName(dto.userName());
-        doctor.setPassword(dto.password());
-        doctor.setRole(Role.Doctor);
-        doctor.setSpecialization(dto.specialization());
-        doctor.setStartTime(dto.startTime());
-        doctor.setEndTime(dto.endTime());
-
-        Doctor saved = doctorRepo.save(doctor);
-
-        return new DoctorDto(
-                saved.getId(),
-                saved.getFirstName(),
-                saved.getLastName(),
-                saved.getEmail(),
-                saved.getAge(),
-                saved.getPhoneNumber(),
-                saved.getUsername(),
-                saved.getPassword(),
-                saved.getStartTime(),
-                saved.getEndTime(),
-                saved.getSpecialization(),
-                null,
-                null,
-                null
-        );
-
-    }
-
+//    public DoctorDto addDoctor(@NonNull DoctorDto dto) {
+//        Doctor doctor = new Doctor();
+//
+//        doctor.setFirstName(dto.firstName());
+//        doctor.setLastName(dto.lastName());
+//        doctor.setEmail(dto.email());
+//        doctor.setAge(dto.age());
+//        doctor.setPhoneNumber(dto.phoneNumber());
+//        doctor.setUserName(dto.userName());
+//        doctor.setPassword(dto.password());
+//        doctor.setRole(Role.Doctor);
+//        doctor.setSpecialization(dto.specialization());
+//        doctor.setStartTime(dto.startTime());
+//        doctor.setEndTime(dto.endTime());
+//
+//        Doctor saved = doctorRepo.save(doctor);
+//
+//        return new DoctorDto(
+//                saved.getId(),
+//                saved.getFirstName(),
+//                saved.getLastName(),
+//                saved.getEmail(),
+//                saved.getAge(),
+//                saved.getPhoneNumber(),
+//                saved.getUsername(),
+//                saved.getPassword(),
+//                saved.getStartTime(),
+//                saved.getEndTime(),
+//                saved.getSpecialization(),
+//                null,
+//                null,
+//                null
+//        );
+//
+//    }
+//
 
     public Page<Doctor> getDoctors(int page, int size, String spec, String name) {
 
@@ -88,7 +88,7 @@ public class DoctorService {
         findDoctor.setPhoneNumber(dto.phoneNumber());
         findDoctor.setUserName(dto.userName());
         findDoctor.setPassword(dto.password());
-
+findDoctor.setRole(Role.Doctor);
         findDoctor.setSpecialization(dto.specialization());
         findDoctor.setStartTime(dto.startTime());
         findDoctor.setEndTime(dto.endTime());

@@ -31,13 +31,12 @@ public class DoctorController {
     private final PrescriptionRepo prescriptionRepo;
     private final MedialRecordService medicalRecordService;
 
-    @PreAuthorize("hasRole('Doctor')")
-    @PostMapping
-    public DoctorDto addDoctor(@Valid @RequestBody DoctorDto dto) {
-        return doctorService.addDoctor(dto);
-    }
 
-    @PreAuthorize("hasRole('Doctor')")
+//    @PostMapping
+//    public DoctorDto addDoctor(@Valid @RequestBody DoctorDto dto) {
+//        return doctorService.addDoctor(dto);
+//    }
+
     @GetMapping
     public Page<Doctor> getDoctors(
             @RequestParam(defaultValue = "0") int page,
@@ -47,43 +46,36 @@ public class DoctorController {
         return doctorService.getDoctors(page, size, specialization, name);
     }
 
-    @PreAuthorize("hasRole('Doctor')")
     @GetMapping("/{id}")
     public Doctor getDoctorById(@PathVariable long id) {
         return doctorService.getDoctorById(id);
     }
 
-    @PreAuthorize("hasRole('Doctor')")
     @PutMapping("/{id}")
     public DoctorDto updateDoctor(@PathVariable long id, @RequestBody DoctorDto dto) {
         return doctorService.updateDoctor(id, dto);
     }
 
-    @PreAuthorize("hasRole('Doctor')")
     @DeleteMapping("/{id}")
     public void deleteDoctor(@PathVariable long id) {
         doctorService.deleteDoctor(id);
     }
 
-    @PreAuthorize("hasRole('Doctor')")
     @GetMapping("/{id}/schedule")
     public List<Appointment> getSchedule(@PathVariable Long id) {
         return doctorService.getSchedule(id);
     }
 
-    @PreAuthorize("hasRole('Doctor')")
     @GetMapping("/{id}/total-earnings")
     public Integer getTotalEarning(@PathVariable long id) {
         return doctorService.getTotalEarning(id);
     }
 
-    @PreAuthorize("hasRole('Doctor')")
     @GetMapping("/{id}/today-earnings")
     public Double getTodayEarning(@PathVariable long id) {
         return doctorService.getTodayEarning(id);
     }
 
-    @PreAuthorize("hasRole('Doctor')")
     @GetMapping("/{id}/range-earnings")
     public Double getEarningFromRange(
             @PathVariable long id,
@@ -91,7 +83,6 @@ public class DoctorController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
         return doctorService.getEarningFromRange(id, start, end);
     }
-    @PreAuthorize("hasRole('Doctor')")
     @GetMapping("/{id}/appointments")
     public List<Appointment> getAppointmentsFromRange(
             @PathVariable long id,
@@ -99,13 +90,11 @@ public class DoctorController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
         return doctorService.getAppointmentsFromRange(id, start, end);
     }
-    @PreAuthorize("hasRole('Doctor')")
 
     @GetMapping("/invoices")
     public List<Invoice> getAllInvoices() {
         return doctorService.getInvoices();
     }
-    @PreAuthorize("hasRole('Doctor')")
 
     @PutMapping("/{id}/expire")
     public void expire(@PathVariable long id) {
@@ -114,13 +103,11 @@ public class DoctorController {
 
     }
 
-    @PreAuthorize("hasRole('Doctor')")
 
     @PostMapping("/addMedical")
     public MedicalRecordDto addMedicalRecord(@RequestBody MedicalRecordDto dto) {
         return medicalRecordService.addMedicalRecord(dto);
     }
-    @PreAuthorize("hasRole('Doctor')")
 
     @GetMapping("/medicalRecord")
     public Page<MedicalRecord> getMedicalRecords(
@@ -130,7 +117,6 @@ public class DoctorController {
             @RequestParam(required = false) @Nullable Long patientId) {
         return medicalRecordService.findWithFilters(page, size, diagnosis, patientId);
     }
-    @PreAuthorize("hasRole('Doctor')")
 
     @GetMapping("/{id}/medical")
     public MedicalRecord getById(@PathVariable long id) {
@@ -144,7 +130,6 @@ public class DoctorController {
             @RequestBody MedicalRecordDto dto) {
         return medicalRecordService.updateMedicalRecord(id, dto);
     }
-    @PreAuthorize("hasRole('Doctor')")
 
     @DeleteMapping("/{id}/medical")
     public void deleteMedicalRecord(@PathVariable long id) {

@@ -1,6 +1,7 @@
 package com.example.clinicmanagementsystem.AuthService;
 
 import com.example.clinicmanagementsystem.RegisterRequest.RegisterDoctorRequest;
+import com.example.clinicmanagementsystem.auth2.AuthRequest;
 import com.example.clinicmanagementsystem.auth2.AuthenticationResponse;
 import com.example.clinicmanagementsystem.config.JwtService;
 import com.example.clinicmanagementsystem.config.SecurityConfigUtils;
@@ -44,7 +45,7 @@ public class AuthDoctorService {
         return new AuthenticationResponse(token);
     }
 
-    public AuthenticationResponse authenticate(RegisterDoctorRequest request) {
+    public AuthenticationResponse authenticate(AuthRequest request) {
 
         manager.authenticate(
                 new UsernamePasswordAuthenticationToken(
